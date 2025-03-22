@@ -1,16 +1,18 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { DistributionOnS3BucketWithDeployment } from './distributionOnS3BucketWithDeployment';
 
 export class CursoAwsDeveloperStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'CursoAwsDeveloperQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new DistributionOnS3BucketWithDeployment(
+      this,
+      'DistributionOnS3BucketWithDeployment',
+      {
+        sourcesPath: ['./src'],
+        destinationKeyPrefix: 'web/static',
+      }
+    );
   }
 }
